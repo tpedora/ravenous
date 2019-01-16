@@ -1,6 +1,10 @@
 {
   "name": "ravenous",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.4.1"
+  },
   "private": true,
   "dependencies": {
     "react": "^16.7.0",
@@ -9,10 +13,12 @@
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

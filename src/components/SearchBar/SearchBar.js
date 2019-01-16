@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './SearchBar.css';
 // React Module to handle the search functionality
 class SearchBar extends React.Component {
@@ -15,6 +14,7 @@ class SearchBar extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleEnterSearch = this.handleEnterSearch.bind(this);
 
     this.sortByOptions = {
       'Best Match': 'best_match',
@@ -49,11 +49,19 @@ class SearchBar extends React.Component {
       location: event.target.value
     });
   }
-
+// To Handle Click Search
   handleSearch(event) {
     this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
-    event.preventDefault();
+    //event.preventDefault();
   }
+// To Handle Enter Search
+  handleEnterSearch(event) {
+    if (event.key === 'Enter') {
+      this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+      event.preventDefault();
+    }
+  }
+
 //Rendering Search Options
   renderSortByOptions() {
     return Object.keys(this.sortByOptions).map(sortByOption => {
@@ -76,8 +84,8 @@ class SearchBar extends React.Component {
           </ul>
         </div>
         <div className="SearchBar-fields">
-          <input placeholder="Search Businesses" onChange={this.handleTermChange}/>
-          <input placeholder="Where?" onChange={this.handleLocationChange}/>
+          <input placeholder="Search Businesses" onChange={this.handleTermChange} onKeyUp={this.handleEnterSearch}/>
+          <input placeholder="Where?" onChange={this.handleLocationChange} onKeyUp={this.handleEnterSearch}/>
         </div>
         <div className="SearchBar-submit" onClick={this.handleSearch}>
           <a>Let's Go</a>
